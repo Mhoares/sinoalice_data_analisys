@@ -1,6 +1,5 @@
 import json
 from datetime import  date
-import matplotlib.pyplot as plt
 class UsersData:
   def __init__(self, path ="users.json"):
     self.path = path
