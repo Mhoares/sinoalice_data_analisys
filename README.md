@@ -1,4 +1,4 @@
-# sinoalice data analysis
+# Sinoalice data analysis
 Required:
 * File with the info of the users in the same folder of the scripts with this schema
 ```json
