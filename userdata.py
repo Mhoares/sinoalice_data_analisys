@@ -1,5 +1,5 @@
 import json
-from datetime import  date
+from datetime import  date, timedelta
 class UsersData:
   def __init__(self, path ="users.json"):
     self.path = path
@@ -28,11 +28,36 @@ class UsersData:
            usersActivityHistory[day]+=1
     return usersActivityHistory
 
+  def getUsersRegistrationDaily(self):
+    usersRegistration = dict()  
+    for user in self.usersData:
+        day = user.timeAgo("createdTime").days
+        if day not in usersRegistration:
+          usersRegistration[day]= 0
+        usersRegistration[day]+=1
+    return usersRegistration
+
+  def getUsersRegistrationMonthly(self):
+    usersRegistration = dict()  
+    for user in self.usersData:
+        month , year= user.monthCreated()
+        key =(year, month)
+        if key not in usersRegistration:
+          usersRegistration[key]= 0
+        usersRegistration[key]+=1
+    return usersRegistration
+
 
 class User:
-   def __init__(self, user, key = "userData"):
-    self.user = user[key]
+  def __init__(self, user, key = "userData"):
+   self.user = user[key]
 
-   def timeAgo(self, key ="lastAccessTime"):
-    return date.today() - date.fromtimestamp(self.user[key])
+  def timeAgo(self, key ="lastAccessTime"):
+   return date.today() - date.fromtimestamp(self.user[key])
 
+  def monthCreated(self, key = "createdTime") :
+    return date.fromtimestamp(self.user[key]).month , date.fromtimestamp(self.user[key]).year
+
+
+
+  
