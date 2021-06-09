@@ -8,7 +8,7 @@ total_sorted = sorted(total_items)
 timeAgo = []
 players = []
 for to in total_sorted:
-    timeAgo.append(to[0].days - 1)
+    timeAgo.append(to[0].days)
     players.append(to[1])
 plt.plot(timeAgo[0:7], players[0:7])
 plt.ylabel('players')

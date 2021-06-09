@@ -47,6 +47,14 @@ class UsersData:
         usersRegistration[key]+=1
     return usersRegistration
 
+  def getUsersDaysPlayed(self):
+    usersDayPlayed = dict()  
+    for user in self.usersData:
+        day = user.getDaysPlayed()
+        if day not in usersDayPlayed:
+          usersDayPlayed[day]= 0
+        usersDayPlayed[day]+=1
+    return usersDayPlayed
 
 class User:
   def __init__(self, user, key = "userData"):
@@ -57,6 +65,13 @@ class User:
 
   def monthCreated(self, key = "createdTime") :
     return date.fromtimestamp(self.user[key]).month , date.fromtimestamp(self.user[key]).year
+
+  def getDaysPlayed(self, created = "createdTime", last = "lastAccessTime"):
+    return (date.fromtimestamp(self.user[last] ) - date.fromtimestamp(self.user[created] )).days
+
+  def getPowerGvG(self, key ="gvgTotalPower"):
+    return self.user[key]
+
 
 
 

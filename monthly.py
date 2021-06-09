@@ -8,7 +8,11 @@ total_registration_items = total_registration.items()
 total_registration_sorted = sorted(total_registration_items)
 month =[]
 players =[]
-for to in total_registration_sorted[int(sys.argv[1]):]:
+
+if len(sys.argv) > 1:
+    total_registration_sorted= total_registration_sorted[int(sys.argv[1]):]
+
+for to in total_registration_sorted:
   month.append(str(to[0][1]) +"-"+ str(to[0][0]))
   players.append(to[1])
 
