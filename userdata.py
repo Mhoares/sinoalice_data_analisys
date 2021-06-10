@@ -68,17 +68,14 @@ class UsersData:
     index = iter(powers)
     intervals = math.ceil( powers[-1]/interval)
     power =powers[0]
- 
+    usersPowerGvG[interval] = 0
     for i in range(interval,interval*intervals,interval):    
       while power and power < i:        
-        power = next(index, False) 
-        if i not in usersPowerGvG:
-          usersPowerGvG[i] = 0
-
+        power = next(index, False)   
         usersPowerGvG[i]+=1    
       if power:      
-        usersPowerGvG[i+interval] = 0
-        usersPowerGvG[(i+interval)]+=1
+        usersPowerGvG[i+interval] = 1
+      
 
     return usersPowerGvG
    
