@@ -1,5 +1,6 @@
 import json
-from datetime import  date, timedelta
+import math
+from datetime import  date
 class UsersData:
   def __init__(self, path ="users.json"):
     self.path = path
@@ -56,6 +57,31 @@ class UsersData:
         usersDayPlayed[day]+=1
     return usersDayPlayed
 
+  def getUsersPowerGvG(self, interval = 10000):
+    usersPowerGvG = dict() 
+    powers =[]
+   
+    for user in self.usersData:
+        powers.append(user.getPowerGvG())
+    
+    powers = sorted(powers)
+    index = iter(powers)
+    intervals = math.ceil( powers[-1]/interval)
+    power =powers[0]
+ 
+    for i in range(interval,interval*intervals,interval):    
+      while power and power < i:        
+        power = next(index, False) 
+        if i not in usersPowerGvG:
+          usersPowerGvG[i] = 0
+
+        usersPowerGvG[i]+=1    
+      if power:      
+        usersPowerGvG[i+interval] = 0
+        usersPowerGvG[(i+interval)]+=1
+
+    return usersPowerGvG
+   
 class User:
   def __init__(self, user, key = "userData"):
    self.user = user[key]
