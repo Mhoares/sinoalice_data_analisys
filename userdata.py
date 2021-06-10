@@ -74,9 +74,7 @@ class UsersData:
         power = next(index, False)   
         usersPowerGvG[i]+=1    
       if power:      
-        usersPowerGvG[i+interval] = 1
-      
-
+        usersPowerGvG[i+interval] = 1     
     return usersPowerGvG
    
 class User:
