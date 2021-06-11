@@ -1,6 +1,7 @@
 import json
 import math
 from datetime import  date
+from constant import Api
 class UsersData:
   def __init__(self, path ="users.json"):
     self.path = path
@@ -57,11 +58,13 @@ class UsersData:
         usersDayPlayed[day]+=1
     return usersDayPlayed
 
-  def getUsersPowerGvG(self, interval = 10000):
+  def getUsersPowerGvG(self, users = [],interval = 10000):
     usersPowerGvG = dict() 
     powers =[]
+    if not len(users):
+      users = self.usersData
    
-    for user in self.usersData:
+    for user in users:
         powers.append(user.getPowerGvG())
     
     powers = sorted(powers)
@@ -76,7 +79,25 @@ class UsersData:
       if power:      
         usersPowerGvG[i+interval] = 1     
     return usersPowerGvG
-   
+
+  def filterUsersByJob(self, job, target = []):
+    users = []
+    if not len(target):
+      target = self.usersData
+
+    for user in target:
+      if user.getJobGvG() == job:
+        users.append(user)
+    return users
+  def filterUsersByActivity(self, days, target = []):
+    users = []
+    if not len(target):
+      target = self.usersData
+
+    for user in target:
+      if user.timeAgo().days < days:
+        users.append(user)
+    return users
 class User:
   def __init__(self, user, key = "userData"):
    self.user = user[key]
@@ -92,6 +113,9 @@ class User:
 
   def getPowerGvG(self, key ="gvgTotalPower"):
     return self.user[key]
+  
+  def getJobGvG(self, key= "gvgJobMstId"):
+    return Api.JOB[self.user[key]]
 
 
 
