@@ -82,24 +82,15 @@ class UsersData:
     return usersPowerGvG
 
   def filterUsersByJob(self, job, target = []):
-    users = []
     if not len(target):
       target = self.usersData
 
-    for user in target:
-      if user.getJobGvG() == job:
-        users.append(user)
-    return users
+    return list(filter(lambda u: u.getJobGvG() == job,target))
 
   def filterUsersByActivity(self, days, target = []):
-    users = []
     if not len(target):
       target = self.usersData
-
-    for user in target:
-      if user.timeAgo().days < days:
-        users.append(user)
-    return users
+    return list(filter(lambda u: u.timeAgo().days < days,target))
 class User:
   def __init__(self, user, key = "userData"):
    self.user = user[key]
