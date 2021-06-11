@@ -62,6 +62,7 @@ class UsersData:
   def getUsersPowerGvG(self, users = [],interval = 10000):
     usersPowerGvG = dict() 
     powers =[]
+    
     if not len(users):
       users = self.usersData
    
@@ -73,24 +74,25 @@ class UsersData:
     intervals = math.ceil( powers[-1]/interval)
     power =powers[0]
     usersPowerGvG[interval] = 0
-    for i in range(interval,interval*intervals,interval):    
-      while power and power < i:        
+
+    for i in range(interval,interval*intervals,interval):  
+      while power and power < i : 
         power = next(index, False)   
         usersPowerGvG[i]+=1    
-      if power:      
+      if power and  power < i+interval:      
         usersPowerGvG[i+interval] = 1     
     return usersPowerGvG
 
   def filterUsersByJob(self, job, target = []):
     if not len(target):
       target = self.usersData
-
     return list(filter(lambda u: u.getJobGvG() == job,target))
 
   def filterUsersByActivity(self, days, target = []):
     if not len(target):
       target = self.usersData
     return list(filter(lambda u: u.timeAgo().days < days,target))
+
 class User:
   def __init__(self, user, key = "userData"):
    self.user = user[key]
