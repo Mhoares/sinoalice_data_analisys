@@ -9,9 +9,12 @@ if len(sys.argv) > 2:
     u = powerGvG.filterUsersByJob(sys.argv[1],u)
     total = powerGvG.getUsersPowerGvG(u)
     subjects = sys.argv[1] +"s" +" online in last "+sys.argv[2]+" Days"
-elif len(sys.argv) > 1:
+elif len(sys.argv) > 1 and not sys.argv[1].isnumeric():
     total = powerGvG.getUsersPowerGvG(powerGvG.filterUsersByJob(sys.argv[1]))
-    subjects = sys.argv[1] +"s"    
+    subjects = sys.argv[1] +"s"
+elif len(sys.argv) > 1:
+        total = powerGvG.getUsersPowerGvG(powerGvG.filterUsersByActivity(int(sys.argv[1])))
+        subjects = "players online in last "+sys.argv[1]+" Days"
 else:    
     total = powerGvG.getUsersPowerGvG()
     subjects = "players"
@@ -26,7 +29,7 @@ for to in total_sorted:
     power.append(to[0])
     players.append(to[1])
     print(to)
-
+print("Total: "+ str(sum(players)))
 plt.plot(power, players)
 plt.ylabel('Number of '+subjects)
 plt.xlabel('Power')

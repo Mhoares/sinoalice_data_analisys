@@ -2,6 +2,7 @@ import json
 import math
 from datetime import  date
 from constant import Api
+
 class UsersData:
   def __init__(self, path ="users.json"):
     self.path = path
@@ -89,6 +90,7 @@ class UsersData:
       if user.getJobGvG() == job:
         users.append(user)
     return users
+
   def filterUsersByActivity(self, days, target = []):
     users = []
     if not len(target):
